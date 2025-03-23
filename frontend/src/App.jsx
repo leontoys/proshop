@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Routes, Route, Link
 } from 'react-router-dom'
+import ProductScreen from './screens/ProductScreen';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Header />
             <Routes>
               <Route path="/" element={<HomeScreen />} />
+              <Route path='/product/:id' element={<ProductScreen/>}/>
             </Routes>
           </Router>
         </Container>
