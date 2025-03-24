@@ -3,25 +3,20 @@ import dontenv from 'dotenv'
 dontenv.config()
 import products  from './data/products.js'
 import connectDB from './config/db.js'
+import asyncHandler from "express-async-handler";
+import productRoutes from './routes/productRoutes.js'//this will be used as a middleware
 
 const app = express()
 const port = process.env.PORT
 
 connectDB()
 
-app.get('/',(req,res)=>{
+//middlewares
+app.use('/api/products',productRoutes)//for any path that starts with api-products
+
+app.get('/',asyncHandler((req,res)=>{
     res.send('API running')
-})
-
-app.get('/api/products',(req,res)=>{
-    res.json(products)
-})
-
-app.get('/api/products/:id',(req,res)=>{
-    const {id} = req.params
-    const proudct = products.find(proudct => proudct._id = id)
-    res.json(proudct)
-})
+}))
 
 app.listen(port,()=>{
     console.log(`app listening http://localhost:${port}/`)
