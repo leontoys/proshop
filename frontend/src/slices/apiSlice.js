@@ -1,3 +1,6 @@
+/**This is like parent slice, 
+ * Product Slice will inherit this and then add its endpoints
+ */
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constants";
 
