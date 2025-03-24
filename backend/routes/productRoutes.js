@@ -7,18 +7,24 @@ const router = express.Router()
 
 router.get('/',asyncHandler(async (req,res)=>{
     const products = await Product.find({})//get from backend
-    products
-    ? res.json(products)
-    : res.status(404).json({message:'No products found'})
+    if(products){
+        return res.json(products)
+    }
+    //error
+    res.status(404)
+    throw new Error('Resource not found');
 }))
 
 router.get('/:id',asyncHandler(async(req,res)=>{
     const {id} = req.params
     //const proudct = products.find(proudct => proudct._id = id) - this was to get from the file
     const product = await Product.findById(id)
-    product
-    ? res.json(product)
-    : res.status(404).json({message:'Product not found'})
+    if(product){
+        return res.json(product)
+    }
+    //error
+    res.status(404)
+    throw new Error('Resource not found');
 }))
 
 export default router
