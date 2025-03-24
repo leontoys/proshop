@@ -2,9 +2,12 @@ import express from 'express'
 import dontenv from 'dotenv'
 dontenv.config()
 import products  from './data/products.js'
+import connectDB from './config/db.js'
 
 const app = express()
 const port = process.env.PORT
+
+connectDB()
 
 app.get('/',(req,res)=>{
     res.send('API running')
