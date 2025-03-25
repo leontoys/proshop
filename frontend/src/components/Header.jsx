@@ -1,9 +1,14 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom';
+import { useSelector  } from "react-redux";
 
 const Header = () => {
+
+  const {cartItems} = useSelector((state)=>state.cart) //read from redux-state
+  console.log("cartItems",cartItems)
+
   return (
     <header> {/**navbar with bootstrap */}
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
@@ -16,6 +21,11 @@ const Header = () => {
             <Nav className='ms-auto'>
               <Nav.Link to='/cart' as={Link}>
                 <FaShoppingCart /> Cart
+                {cartItems.length > 0 && (
+                  <Badge pill bg='success' style={{marginLeft:'5px'}}>
+                    {cartItems.reduce((accumulator,current)=>accumulator+current.qty,0)}
+                  </Badge>
+                )}
               </Nav.Link>
               <Nav.Link to='/login' as={Link}>
                 <FaUser /> Sign In
