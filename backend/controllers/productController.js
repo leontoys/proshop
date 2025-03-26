@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 
 //get all
-const getProducts = asyncHandler(async (req,res)=>{
+const getAllProducts = asyncHandler(async (req,res)=>{
     const products = await Product.find({})//get from backend
     if(products){
         return res.json(products)
@@ -14,7 +14,7 @@ const getProducts = asyncHandler(async (req,res)=>{
 })
 
 //get one product
-const getProduct = asyncHandler(async(req,res)=>{
+const getSingleProduct = asyncHandler(async(req,res)=>{
     const {id} = req.params
     //const proudct = products.find(proudct => proudct._id = id) - this was to get from the file
     const product = await Product.findById(id)
@@ -26,4 +26,4 @@ const getProduct = asyncHandler(async(req,res)=>{
     throw new Error('Resource not found');
 })
 
-export {getProduct,getProducts}
+export {getSingleProduct,getAllProducts}
