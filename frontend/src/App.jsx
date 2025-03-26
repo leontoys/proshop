@@ -7,16 +7,18 @@ import {
   Routes, Route, Link
 } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
+import CartScreen from './screens/CartScreen';
 
 const App = () => {
   return (
     <>      <main className='py-3'>
         <Container>
           <Router>
-            <Header />
+            {<Header />}
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path='/product/:id' element={<ProductScreen/>}/>
+              <Route path='/cart' element={<CartScreen/>}></Route>
             </Routes>
           </Router>
         </Container>

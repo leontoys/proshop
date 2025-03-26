@@ -7,11 +7,10 @@ import { useSelector  } from "react-redux";
 const Header = () => {
 
   const {cartItems} = useSelector((state)=>state.cart) //read from redux-state
-  console.log("cartItems",cartItems)
-
+  
   return (
     <header> {/**navbar with bootstrap */}
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='primary' expand='lg' collapseOnSelect>
         <Container>
           <Navbar.Brand as={Link} to='/'>
             <img src={logo}/>

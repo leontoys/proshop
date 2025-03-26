@@ -21,14 +21,16 @@ const ProductScreen = () => {
   const navigate = useNavigate()
 
   const addToCartHandler = () => {
+    console.log("add to cart handler",{...product,qty})
     dispatch(addToCart({...product,qty}))//send product with updated quantity
+    console.log("navigate to cart")
     navigate('/cart')//show cart
   }
 
   return (
     <>
-      <Link to='/' className='btn btn-light my-3'>{/** back to home page */}
-        Go Back
+      <Link to='/' className='btn btn-dark my-3'>{/** back to home page */}
+       Go Back
       </Link>
       {isLoading ?
         (<Loader></Loader>)

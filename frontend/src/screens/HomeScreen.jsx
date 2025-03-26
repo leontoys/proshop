@@ -26,16 +26,6 @@ const HomeScreen = () => {
             </Row>
           </>)}
     </>)
-
-  // return (
-  //     { isLoading ? () :error  ?
-  //       () :
-  //       (
-  //         <>
-
-    
-  //         </>)  }
-  // );
 };
 
 export default HomeScreen;
