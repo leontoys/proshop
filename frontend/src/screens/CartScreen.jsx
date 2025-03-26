@@ -67,6 +67,7 @@ const CartScreen = () => {
                             </Col>
                             <Col md={2}>
                                 <Button 
+                                    disabled={cartItems.length===0}
                                     onClick={(e)=>{
                                         e.preventDefault()
                                         removeFromCartHandler(item._id)
