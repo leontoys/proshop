@@ -6,6 +6,7 @@
     "build:ui" : "rm -rf dist && cd ../frontend/ && npm run build && cp -r dist ../backend",
     "full:deploy" : "npm run build:ui && cd .. && git add . && git commit -m uibuild && git push",
     "dev": "nodemon index.js",
+    "start" : "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "data:import": "node seeder.js",
     "data:destroy": "node seeder.js -d"
