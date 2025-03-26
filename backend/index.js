@@ -12,6 +12,8 @@ const port = process.env.PORT
 
 connectDB()
 
+//server frontned
+app.use(express.static('dist'))
 //middlewares
 app.use('/api/products',productRoutes)//for any path that starts with api-products
 

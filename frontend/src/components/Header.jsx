@@ -1,6 +1,7 @@
-import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
+import { Navbar, Nav, Container, Badge, Image } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import logo from '../assets/logo.png'
+import { BiLogoReact } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 import { useSelector  } from "react-redux";
 
@@ -13,8 +14,8 @@ const Header = () => {
       <Navbar bg='primary' expand='lg' collapseOnSelect>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            <img src={logo}/>
-            ProShop</Navbar.Brand>
+            <Image src=''/>
+            <strong><BiLogoReact />MERN Store</strong></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
