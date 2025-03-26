@@ -13,6 +13,8 @@ const port = process.env.PORT
 
 connectDB()
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 //server frontned
 app.use(express.static('dist'))
 //middlewares

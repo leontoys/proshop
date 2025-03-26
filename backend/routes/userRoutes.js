@@ -22,7 +22,7 @@ router.post('/',registerUser)
 router.get('/',getUsers)
 
 //login
-router.post('/login',authUser)
+router.post('/auth',authUser)
 
 //profile
 router.get('/profile',getUserProfile)
