@@ -1,4 +1,5 @@
 import express from 'express'
+import { admin,protect } from '../middleware/authMiddleware.js'
 
 import {
     registerUser,
@@ -19,23 +20,27 @@ const router = express.Router()
 router.post('/',registerUser)
 
 //get all users
-router.get('/',getUsers)
+//only admin should get all users info
+router.get('/',protect,admin,getUsers)
 
 //login
 router.post('/auth',authUser)
 
 //profile
-router.get('/profile',getUserProfile)
+//only for authorised user
+router.get('/profile',protect,getUserProfile)
 
 //update
-router.put('/profile',updateUserProfile)
+//only authorised user
+router.put('/profile',protect,updateUserProfile)
 
 //get user
-router.get('/:id',getUserById)
+//only for admin
+router.get('/:id',protect,admin,getUserById)
 
 //delete user
-router.delete('/:id',deleteUser)
+router.delete('/:id',protect,admin,deleteUser)
 
-router.put('/:id',updateUser)
+router.put('/:id',protect,admin,updateUser)
 
 export default router
