@@ -74,17 +74,59 @@ const logoutUser = expressAsyncHandler(async (req,res) => {
     res.status(200).json({message:'User logged out'})
 })
 
+//get profile
+const getUserProfile = expressAsyncHandler(async(req,res)=>{
+    console.log('get user profile')
+
+    const user = await User.findById(req.user._id)
+
+    if(!user){
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    res.json({
+        _id : user._id,
+        name : user.name,
+        email : user.email,
+        isAdmin : user.isAdmin
+    })
+})
+
+//update profile
+const updateUserProfile = expressAsyncHandler(async(req,res)=>{
+    console.log('update user profile')
+
+    const user = User.findById(req.user._id)
+
+    if(!user){
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    //user found - now update
+    user.name = req.body.name || user.name 
+    user.email = req.body.email || user.email
+
+    if(req.body.password){
+        user.password = req.body.password
+    }
+
+    const updatedUser = await user.save()
+
+    res.json({
+        _id : updatedUser._id,
+        name : updatedUser.name,
+        email : updatedUser.email,
+        isAdmin : updatedUser.isAdmin
+    })
+
+})
+
 const getUsers = expressAsyncHandler(async(req,res)=>{
     res.send('get users')
 })
 
-const getUserProfile = expressAsyncHandler(async(req,res)=>{
-    res.send('get user profile')
-})
-
-const updateUserProfile = expressAsyncHandler(async(req,res)=>{
-    res.send('update user profile')
-})
 
 const getUserById = expressAsyncHandler(async(req,res)=>{
     res.send('get user by id')
