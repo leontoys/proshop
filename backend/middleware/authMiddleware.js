@@ -9,6 +9,9 @@ const protect = asynchandler(async(req,res,next)=>{
     
     token = req?.cookies?.jwt
 
+    console.log("cookie?",req?.cookies)
+    console.log("token",req?.cookies?.token)
+
     if(!token){
         res.status(401)
         throw new Error('Not authorised no token')

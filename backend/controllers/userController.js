@@ -1,8 +1,10 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
+import generateToken from "../utils/generateToken.js";
 
 //---/api/users/auth
+//login
 const authUser = expressAsyncHandler(async(req,res)=>{
     const {email,password} = req.body
 
@@ -10,23 +12,8 @@ const authUser = expressAsyncHandler(async(req,res)=>{
     const user = await User.findOne({email})
 
     if(user && (await user.matchPassword(password))){
-        //create token
-        const token = jwt.sign({
-            userId : user._id,
-        },
-        process.env.JWT_SECRET,
-        {
-            expiresIn : '30d'
-        }
-    )
 
-    //HTTP Only cookie
-        res.cookie('jwt',token,{
-            httpOnly : true,
-            secure : process.env.NODE_ENV !== 'development',//secure cookies in production
-            sameSite : "strict",
-            maxAge : 30 * 24 * 60 * 60 * 1000//30 days in ms
-        })
+        generateToken(res,user._id)
 
         res.json({
             _id : user._id,
@@ -41,16 +28,50 @@ const authUser = expressAsyncHandler(async(req,res)=>{
     }
 })
 
+//create user
+const registerUser = expressAsyncHandler(async(req,res)=>{
+    console.log('register user')
+    const {name,email,password} = req.body
+
+    //check if user exists
+    const userexists = await User.findOne({email})
+
+    if(userexists){
+        res.status(400)
+        throw new Error('User already exists')
+    }
+
+    const user = User.create({
+        name,
+        email,
+        password //this will be hashed in the User model
+    })
+
+    if(!user){
+        res.status(400)
+        throw new Error ('Incorrect user data')
+    }
+
+    //generate token
+    generateToken(res,user._id)
+    console.log("generated token for user")
+    res.status(200).json(
+        {
+            _id : user._id,
+            name : user.name,
+            email : user.email,
+            isAdmin : user.isAdmin
+        }
+    )
+})
+
+//logout
 const logoutUser = expressAsyncHandler(async (req,res) => {
     res.cookie('jwt','',{
         httpOnly:true,
         expires:new Date(0)
     })
     res.status(200).json({message:'User logged out'})
-})
-
-const registerUser = expressAsyncHandler(async(req,res)=>{
-    res.send('register user')
 })
 
 const getUsers = expressAsyncHandler(async(req,res)=>{

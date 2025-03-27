@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 
 const userSchema = mongoose.Schema(
   {
@@ -34,6 +34,15 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   console.log("compare passwords",result)
   return result
 }
+
+userSchema.pre('save',async function (next) {
+  if(!this.isModified('password')){
+    next()
+  }
+
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password,salt)
+})
 
 const User = mongoose.model('User', userSchema);
 
