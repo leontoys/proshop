@@ -41,6 +41,14 @@ const authUser = expressAsyncHandler(async(req,res)=>{
     }
 })
 
+const logoutUser = expressAsyncHandler(async (req,res) => {
+    res.cookie('jwt','',{
+        httpOnly:true,
+        expires:new Date(0)
+    })
+    res.status(200).json({message:'User logged out'})
+})
+
 const registerUser = expressAsyncHandler(async(req,res)=>{
     res.send('register user')
 })
@@ -70,7 +78,7 @@ const updateUser = expressAsyncHandler(async(req,res)=>{
 })
 
 export {
-
+    logoutUser,
     registerUser,
     getUsers,
     authUser,

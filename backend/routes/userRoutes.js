@@ -9,7 +9,8 @@ import {
     updateUserProfile,
     getUserById,
     deleteUser,
-    updateUser
+    updateUser,
+    logoutUser
 
 } from '../controllers/userController.js'
 
@@ -25,6 +26,9 @@ router.get('/',protect,admin,getUsers)
 
 //login
 router.post('/auth',authUser)
+
+//logout
+router.post('/logout',logoutUser)
 
 //profile
 //only for authorised user
